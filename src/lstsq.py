@@ -50,6 +50,8 @@ x0 = np.ones(x.shape[0])
 #为了和后面的polyfit一致. polyfit高次在前
 A = np.vstack((x2, x, x0)).T
 
+#正规方程求 lstsq
+#inv(A'A) A.T*b
 x_head = np.dot(np.dot(inv(np.dot(A.T, A)), A.T), y)
 
 errors = np.sum(np.abs(np.dot(A, x_head) - y)) / np.sum(np.abs(y))
@@ -57,8 +59,7 @@ errors = np.sum(np.abs(np.dot(A, x_head) - y)) / np.sum(np.abs(y))
 print "errors by inv(A.T*A)*A.T*b:", errors
 
 #QR分解求 lstsq 
-
-from QR import QR
+from qr import QR
 
 Q,R = QR(A, united=True)
 x_head_byQR = np.dot(np.dot(inv(R),Q.T),  y)
@@ -66,10 +67,17 @@ x_head_byQR = np.dot(np.dot(inv(R),Q.T),  y)
 errors = np.sum(np.abs(np.dot(A, x_head_byQR) - y)) / np.sum(np.abs(y))
 print "errors by inv(R)*Q.T*b:", errors
 
+#SVD分解求 lstsq 
+from pinv import pinv_by_svd 
+x_pinv = pinv_by_svd(A)
+x_head_bySVD = np.dot(x_pinv,  y)
+
+errors = np.sum(np.abs(np.dot(A, x_head_bySVD) - y)) / np.sum(np.abs(y))
+print "errors by x_head_bySVD*b:", errors
+
 #多项式拟合
 z = np.polyfit(x, y, 2)
 p = np.poly1d(z)
-
 errors = np.sum(np.abs(np.dot(A, p) - y)) / np.sum(np.abs(y))
 print "errors by poly1d:", errors
 
