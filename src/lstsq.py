@@ -31,9 +31,12 @@ Q*Q.T*b为b在Q上的正交投影 (?看讲义), 即为所求的解
 Ry = Q.T*b, 因为R本身是一个上三解矩阵
 
 3. SVD解法
-A+= U<sup>+</sup>
-A_inv = 
+ +    +
+A  = U S V'
+         + -1 +
+A_inv = V S  U
 
+也可以参考SVD算法
 '''
 
 from inv import inv
