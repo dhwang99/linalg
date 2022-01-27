@@ -1,5 +1,7 @@
 ### 线性代数中一些基础算法的python实现
 
+> 建议采用 Gilbert Strang 的《Introduction to Linear Algebra》 教材，有对应的中文版
+> 
 > 用python实现了常用的线性代数的基础算法.python2.7跑例子可以通过。很多细节没有考虑
 
 > 主要用来学习线性代数的算法原理. eig求解时，用到迭代算法.
